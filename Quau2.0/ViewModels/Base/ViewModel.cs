@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Quau2._0.ViewModels.Base
 {
-    class ViewModel : INotifyPropertyChanged
+    internal abstract class ViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

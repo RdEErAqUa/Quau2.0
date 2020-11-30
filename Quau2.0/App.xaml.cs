@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quau2._0.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,23 @@ namespace Quau2._0
     /// </summary>
     public partial class App : Application
     {
+        public DisplayRootRegistry displayRootRegistry = new DisplayRootRegistry();
+        MainViewModel mainWindowViewModel;
+
+        public App()
+        {
+            displayRootRegistry.RegisterWindowType<MainViewModel, MainWindow>();
+        }
+
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            mainWindowViewModel = new MainViewModel();
+
+            await displayRootRegistry.ShowModalPresentation(mainWindowViewModel);
+
+            Shutdown();
+        }
     }
 }
