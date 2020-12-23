@@ -13,6 +13,6 @@
         <vm:MainViewModel/>
     </Window.DataContext>
     <DockPanel>
-        <vucm:MenuUserControl DataContext="{Binding MenuViewModel}" DockPanel.Dock="Top"/>
+        <vucm:MenuUserControl DataContext="{Binding MenuModel}" DockPanel.Dock="Top"/>
     </DockPanel>
 </Window>
