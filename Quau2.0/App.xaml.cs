@@ -8,6 +8,8 @@ using Quau2._0.Services;
 using Quau2._0.Services.Interfaces;
 using Quau2._0.Services.WorkDataFile.Interfaces;
 using Quau2._0.Services.WorkDataFile;
+using Quau2._0.ViewModels.MenuViewModels;
+using Quau2._0.Views.UserControls.Menu;
 
 namespace Quau2._0
 {
@@ -36,6 +38,7 @@ namespace Quau2._0
             services.AddTransient<IReadDataService, ReadDataService>();
 
             services.AddSingleton<MainViewModel>();
+            services.AddSingleton<MenuViewModel>();
         }
         protected override async void OnStartup(StartupEventArgs e)
         {

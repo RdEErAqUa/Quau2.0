@@ -4,6 +4,7 @@ using Quau2._0.Models;
 using Quau2._0.Services.Interfaces;
 using Quau2._0.Services.WorkDataFile.Interfaces;
 using Quau2._0.ViewModels.Base;
+using Quau2._0.ViewModels.MenuViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,15 +17,24 @@ namespace Quau2._0.ViewModels
 {
     class MainViewModel : ViewModel
     {
-        #region SampleData : ObservableCollection<Sample> - коллекция выборок, которые анализируються
+        /// <summary>
+        /// MenuModel - это ViewModel для представление Menu в пользовательском интерфейсе MenuUserControl
+        /// </summary>
+        public MenuViewModel MenuModel { get; }
 
-        private ObservableCollection<Sample> _SampleData;
-
-        public ObservableCollection<Sample> SampleData { get => _SampleData; set => Set(ref _SampleData, value); }
-
-        #endregion
-        public MainViewModel(IOneDimensionalConvertService OneDimensionalConverterService, ITwoDimensionalConvertService TwoDimensionalConvertService)
+        /// <summary>
+        /// Конструктор модели для конструктора VisualStudio
+        /// </summary>
+        public MainViewModel()
         {
+
+        }
+        /// <summary>
+        /// Конструктор модели для DependencyInjection
+        /// </summary>
+        public MainViewModel(MenuViewModel _menuViewModel)
+        {
+            this.MenuModel = _menuViewModel;
         }
     }
 }

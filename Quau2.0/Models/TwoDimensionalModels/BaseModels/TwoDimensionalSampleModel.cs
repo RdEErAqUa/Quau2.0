@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quau2._0.Models.TwoDimensionalModel
+namespace Quau2._0.Models.TwoDimensionalModels.BaseModels
 {
     class TwoDimensionalSampleModel : Model
     {

@@ -1,4 +1,4 @@
-﻿using Quau2._0.Models.TwoDimensionalModel;
+﻿using Quau2._0.Models.TwoDimensionalModels.BaseModels;
 using Quau2._0.Services.WorkDataFile.Interfaces;
 using System;
 using System.Collections.Generic;

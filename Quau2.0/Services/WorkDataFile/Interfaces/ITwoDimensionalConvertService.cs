@@ -1,4 +1,4 @@
-﻿using Quau2._0.Models.TwoDimensionalModel;
+﻿using Quau2._0.Models.TwoDimensionalModels.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
