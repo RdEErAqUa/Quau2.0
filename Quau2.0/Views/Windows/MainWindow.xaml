@@ -10,7 +10,31 @@
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="Файл"/>1
+            <MenuItem Header="Файл">
+                <MenuItem Header="Додати дані"/>
+                <MenuItem Header="Додати одновимірні дані із файлу"/>
+                <MenuItem Header="Додати двовимирні дані із файлу"/>
+            </MenuItem>
         </Menu>
+        <ItemsControl ItemsSource="{Binding SampleData}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <ItemsControl ItemsSource="{Binding SampleValue}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Margin="3,3,3,3" Text="{Binding}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
     </DockPanel>
 </Window>
