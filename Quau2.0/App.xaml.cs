@@ -5,11 +5,12 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Quau2._0.Services;
-using Quau2._0.Services.Interfaces;
 using Quau2._0.Services.WorkDataFile.Interfaces;
 using Quau2._0.Services.WorkDataFile;
 using Quau2._0.ViewModels.MenuViewModels;
 using Quau2._0.Views.UserControls.Menu;
+using Quau2._0.ViewModels.PreviewViewModels;
+using Quau2._0.Views.Windows.PreviewWindows;
 
 namespace Quau2._0
 {
@@ -28,6 +29,7 @@ namespace Quau2._0
             _serviceProvider = serviceCollection.BuildServiceProvider();
 
             displayRootRegistry.RegisterWindowType<MainViewModel, MainWindow>();
+            displayRootRegistry.RegisterWindowType<PreviewViewModel, PreviewWindow>();
         }
 
         private void ConfigureServices(IServiceCollection services)
@@ -37,6 +39,9 @@ namespace Quau2._0
             services.AddTransient<ISaveDialogService, SaveDialogService>();
             services.AddTransient<IReadDataService, ReadDataService>();
 
+            //Сервис Превью модели
+            services.AddTransient<PreviewViewModel>();
+            //
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<MenuViewModel>();
         }

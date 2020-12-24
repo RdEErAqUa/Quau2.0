@@ -3,7 +3,6 @@ using Quau2._0.Infrastructure.Commands.Base;
 using Quau2._0.Models;
 using Quau2._0.Models.OneDimensionalModels;
 using Quau2._0.Models.TwoDimensionalModels;
-using Quau2._0.Services.Interfaces;
 using Quau2._0.Services.WorkDataFile.Interfaces;
 using Quau2._0.ViewModels.Base;
 using Quau2._0.ViewModels.MenuViewModels;

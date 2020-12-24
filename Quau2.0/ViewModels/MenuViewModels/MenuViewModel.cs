@@ -3,6 +3,7 @@ using Quau2._0.Models.OneDimensionalModels;
 using Quau2._0.Models.TwoDimensionalModels;
 using Quau2._0.Services.WorkDataFile.Interfaces;
 using Quau2._0.ViewModels.Base;
+using Quau2._0.ViewModels.PreviewViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,6 +25,11 @@ namespace Quau2._0.ViewModels.MenuViewModels
         /// Сервис для считывание данных как двомерная выборка
         /// </summary>
         private ITwoDimensionalConvertService _TwoDimensionalConvertService;
+
+        /// <summary>
+        /// Сервис, для предпросмотра выборки
+        /// </summary>
+        private readonly PreviewViewModel _PreviewModel;
 
         #region OneDimensionalModels : ObservableCollection<OneDimensionalModel> - коллекция одномерных выборок
         private ObservableCollection<OneDimensionalModel> _OneDimensionalModels;
@@ -116,10 +122,11 @@ namespace Quau2._0.ViewModels.MenuViewModels
         /// <summary>
         /// Конструктор модели для DependencyInjection
         /// </summary>
-        public MenuViewModel(IOneDimensionalConvertService OneDimensionalConverterService, ITwoDimensionalConvertService TwoDimensionalConvertService)
+        public MenuViewModel(IOneDimensionalConvertService OneDimensionalConverterService, ITwoDimensionalConvertService TwoDimensionalConvertService, PreviewViewModel PreviewModel)
         {
             this._OneDimensionalConverterService = OneDimensionalConverterService;
             this._TwoDimensionalConvertService = TwoDimensionalConvertService;
+            this._PreviewModel = PreviewModel;
 
             //
             CommandInitialization();
