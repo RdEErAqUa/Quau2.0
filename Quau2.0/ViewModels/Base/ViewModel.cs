@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quau2._0.Infrastructure.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,22 +9,14 @@ using System.Threading.Tasks;
 
 namespace Quau2._0.ViewModels.Base
 {
-    internal abstract class ViewModel : INotifyPropertyChanged
+    /// <summary>
+    /// Класс, реализирующий интерфейс INotifyPropertyChanged. Реализация скрытая в NotifyChanged.
+    /// Созданный, для переопределения методов и поле для их дальнейшего использования во всех ViewModel.
+    /// </summary>
+    internal abstract class ViewModel : NotifyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string PropertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(PropertyName));
-        }
-
-        protected virtual bool Set<T>(ref T field, T value, [CallerMemberName] string PropertyName = null)
-        {
-            if (Equals(field, value)) return false;
-            field = value;
-            OnPropertyChanged(PropertyName);
-            return true;
-
-        }
+        /// <summary>
+        /// 
+        /// </summary>
     }
 }
