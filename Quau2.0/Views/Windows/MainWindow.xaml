@@ -19,14 +19,14 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding ClusterName}"/>
+                        <TextBox Text="{Binding StringFormat={}{0}:, Path=ClusterName, Mode=OneWay}" />
                         <ListBox ItemsSource="{Binding OneDimensionalModels}"
                                  dd:DragDrop.IsDragSource="True"
                                  dd:DragDrop.IsDropTarget="True">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel>
-                                        <TextBlock Text="{Binding FileName}"/>
+                                        <TextBlock Text="{Binding StringFormat=· {0}, Path=FileName}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>

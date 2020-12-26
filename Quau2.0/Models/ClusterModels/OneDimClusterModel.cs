@@ -24,6 +24,16 @@ namespace Quau2._0.Models.ClusterModels
 
         #endregion
 
+        #region ShortDesc : String - краткое описание кластера
+
+        private String _ShortDesc;
+        /// <summary>
+        /// Краткое описание кластера
+        /// </summary>
+        public String ShortDesc { get => _ShortDesc; set => Set(ref _ShortDesc, value); }
+
+        #endregion
+
         #region OneDimensionalModels : ObservableCollection<OneDimensionalModel> - кластер одномерных выборок
         private ObservableCollection<OneDimensionalModel> _OneDimensionalModels;
         /// <summary>

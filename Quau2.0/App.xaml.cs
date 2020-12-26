@@ -11,6 +11,10 @@ using Quau2._0.ViewModels.MenuViewModels;
 using Quau2._0.Views.UserControls.Menu;
 using Quau2._0.ViewModels.PreviewViewModels;
 using Quau2._0.Views.Windows.PreviewWindows;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.VariationSeriesServices.Interfaces;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.VariationSeriesServices;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices;
 
 namespace Quau2._0
 {
@@ -38,7 +42,10 @@ namespace Quau2._0
             services.AddScoped<ITwoDimensionalConvertService, TwoDimensionalConvertService>();
             services.AddTransient<ISaveDialogService, SaveDialogService>();
             services.AddTransient<IReadDataService, ReadDataService>();
-
+            //Сервис первичного статистического анализа
+            services.AddTransient<IVariationSeriesService, VariationSeriesService>();
+            services.AddTransient<IClassSizeService, ClassSizeService>();
+            services.AddTransient<IPrimaryStatisticAnalysisService, PrimaryStatisticAnalysisService>();
             //Сервис Превью модели
             services.AddTransient<PreviewViewModel>();
             //

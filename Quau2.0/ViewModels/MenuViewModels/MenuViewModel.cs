@@ -1,5 +1,6 @@
 ﻿using Quau2._0.Infrastructure.Commands;
 using Quau2._0.Infrastructure.Commands.AsyncLambdaCommands;
+using Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticAnalysisCommands;
 using Quau2._0.Models.ClusterModels;
 using Quau2._0.Models.OneDimensionalModels;
 using Quau2._0.Models.TwoDimensionalModels;
@@ -61,7 +62,7 @@ namespace Quau2._0.ViewModels.MenuViewModels
         /// <summary>
         /// ReadDataFromFile - считывает данные как выборки из файла.
         /// </summary>
-        public ICommand ReadDataFromFile { get => new ReadDataFromFileCommand(OneDimClusterModels, TwoDimensionalModels, _OneDimensionalConverterService, _TwoDimensionalConvertService).ReadDataFromFile;}
+        public ICommand ReadDataFromFile { get => new ReadDataFromFileCommand(OneDimClusterModels, TwoDimensionalModels, _OneDimensionalConverterService, _TwoDimensionalConvertService).CommandRun; }
         #endregion
 
         #endregion
