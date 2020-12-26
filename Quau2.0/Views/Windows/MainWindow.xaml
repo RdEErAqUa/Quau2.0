@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Quau2._0"
         xmlns:vm="clr-namespace:Quau2._0.ViewModels"
         xmlns:vucm="clr-namespace:Quau2._0.Views.UserControls.Menu"
+        xmlns:dd="urn:gong-wpf-dragdrop"
         d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -14,5 +15,25 @@
     </Window.DataContext>
     <DockPanel>
         <vucm:MenuUserControl DataContext="{Binding MenuModel}" DockPanel.Dock="Top"/>
+        <ListBox ItemsSource="{Binding OneDimClusterModels}" Grid.Column="0" DockPanel.Dock="Top">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding ClusterName}"/>
+                        <ListBox ItemsSource="{Binding OneDimensionalModels}"
+                                 dd:DragDrop.IsDragSource="True"
+                                 dd:DragDrop.IsDropTarget="True">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding FileName}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </DockPanel>
 </Window>

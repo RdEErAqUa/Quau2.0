@@ -1,4 +1,6 @@
 ﻿using Quau2._0.Infrastructure.Commands;
+using Quau2._0.Infrastructure.Commands.AsyncLambdaCommands;
+using Quau2._0.Models.ClusterModels;
 using Quau2._0.Models.OneDimensionalModels;
 using Quau2._0.Models.TwoDimensionalModels;
 using Quau2._0.Services.WorkDataFile.Interfaces;
@@ -32,11 +34,11 @@ namespace Quau2._0.ViewModels.MenuViewModels
         private readonly PreviewViewModel _PreviewModel;
 
         #region OneDimensionalModels : ObservableCollection<OneDimensionalModel> - коллекция одномерных выборок
-        private ObservableCollection<OneDimensionalModel> _OneDimensionalModels;
+        private ObservableCollection<OneDimClusterModel> _OneDimClusterModels;
         /// <summary>
-        /// Коллекция одномерных выборок
+        /// Коллекция кластеров одномерных выборок
         /// </summary>
-        public ObservableCollection<OneDimensionalModel> OneDimensionalModels { get => _OneDimensionalModels; set => Set(ref _OneDimensionalModels, value); }
+        public ObservableCollection<OneDimClusterModel> OneDimClusterModels { get => _OneDimClusterModels; set => Set(ref _OneDimClusterModels, value); }
         #endregion
 
         #region TwoDimensionalModels : ObservableCollection<TwoDimensionalModel> - коллекция двомерных выборок
@@ -56,51 +58,10 @@ namespace Quau2._0.ViewModels.MenuViewModels
         #region Commands
 
         #region ReadDataFromFile - считать данные из файла
-
-        private bool _isBusyReadDataFromFile;
-        public bool isBusyReadDataFromFile
-        {
-            get => _isBusyReadDataFromFile;
-            private set => Set(ref _isBusyReadDataFromFile, value);
-        }
-
-        public ICommand ReadDataFromFile { get; private set; }
-        private async Task OnReadDataFromFileExecuted(object p)
-        {
-            try
-            {
-                isBusyReadDataFromFile = true;
-                await Task.Run(() =>
-                {
-                    switch (Int32.Parse((string)p))
-                    {
-                        //Случай, считывание данных как двомерные данные и одномерные данные
-                        case 0:
-                            break;
-                        //Случай, считывание данных как одномерные данные
-                        case 1:
-                            OneDimensionalModels.Add(new OneDimensionalModel { OneDimensionalSampleModels = 
-                                new ObservableCollection<Models.OneDimensionalModels.BaseModels.OneDimensionalSampleModel>(_OneDimensionalConverterService.
-                                FromFileToOneDimensionalData().
-                                Select(X => new Models.OneDimensionalModels.BaseModels.OneDimensionalSampleModel { X = X, Y = 0})) });
-                            break;
-                        //Случай, считывание данных как двомерные данные
-                        case 2:
-                            _TwoDimensionalConvertService.FromFileToTwoDimensionalData();
-                            break;
-                    }
-                });
-            }
-            finally
-            {
-                isBusyReadDataFromFile = false;
-            }
-        }
-
-        private bool CanReadDataFromFileExecute(object p)
-        {
-            return !isBusyReadDataFromFile;
-        }
+        /// <summary>
+        /// ReadDataFromFile - считывает данные как выборки из файла.
+        /// </summary>
+        public ICommand ReadDataFromFile { get => new ReadDataFromFileCommand(OneDimClusterModels, TwoDimensionalModels, _OneDimensionalConverterService, _TwoDimensionalConvertService).ReadDataFromFile;}
         #endregion
 
         #endregion
@@ -108,6 +69,7 @@ namespace Quau2._0.ViewModels.MenuViewModels
         /// <summary>
         /// Функция, для установки главного окна
         /// </summary>
+        /// <param name="_MainViewModel">Ссылка на главное окно</param>
         public void SetMainViewModel(MainViewModel _MainViewModel)
         {
             this._MainViewModel = _MainViewModel;
@@ -122,23 +84,14 @@ namespace Quau2._0.ViewModels.MenuViewModels
         /// <summary>
         /// Конструктор модели для DependencyInjection
         /// </summary>
+        /// <param name="OneDimensionalConverterService">Сервис, для считывание одномерных выборок</param>
+        /// <param name="TwoDimensionalConvertService">Сервис, для считывание двомерных выборок</param>
+        /// <param name="PreviewModel">Окно превью</param>
         public MenuViewModel(IOneDimensionalConvertService OneDimensionalConverterService, ITwoDimensionalConvertService TwoDimensionalConvertService, PreviewViewModel PreviewModel)
         {
             this._OneDimensionalConverterService = OneDimensionalConverterService;
             this._TwoDimensionalConvertService = TwoDimensionalConvertService;
             this._PreviewModel = PreviewModel;
-
-            //
-            CommandInitialization();
-            //
-        }
-
-        /// <summary>
-        /// Функция, для инициализация команд
-        /// </summary>
-        private void CommandInitialization()
-        {
-            this.ReadDataFromFile = new AsyncLambdaCommand(OnReadDataFromFileExecuted, CanReadDataFromFileExecute);
         }
     }
 }

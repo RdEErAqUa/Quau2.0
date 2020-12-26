@@ -24,6 +24,8 @@ namespace Quau2._0.Services.WorkDataFile
         }
         public ICollection<double> LineToOneDimensionalData(string LineValue)
         {
+            if (LineValue == null) return null;
+
             char[] separator = new char[] { ' ', '\n', '\r' };
             try
             {

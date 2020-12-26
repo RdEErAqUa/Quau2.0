@@ -18,6 +18,13 @@ namespace Quau2._0.Infrastructure.Commands
         private readonly Func<object, bool> _canExecute;
         private readonly IErrorHandler _errorHandler;
 
+
+        /// <summary>
+        /// Создание ассинхронной команды
+        /// </summary>
+        /// <param name="execute">Функция, которая будет выполняться</param>
+        /// <param name="canExecute">Функция, которая проверяет, стоит ли execute испольняться</param>
+        /// <param name="errorHandler"></param>
         public AsyncLambdaCommand(
             Func<object, Task> execute,
             Func<object, bool> canExecute = null,

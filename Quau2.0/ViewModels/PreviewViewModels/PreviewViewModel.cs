@@ -1,5 +1,7 @@
-﻿using Quau2._0.Models.OneDimensionalModels;
+﻿using Quau2._0.Models.ClusterModels;
+using Quau2._0.Models.OneDimensionalModels;
 using Quau2._0.Models.TwoDimensionalModels;
+using Quau2._0.ViewModels.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,15 +11,15 @@ using System.Threading.Tasks;
 
 namespace Quau2._0.ViewModels.PreviewViewModels
 {
-    class PreviewViewModel
+    class PreviewViewModel : ViewModel
     {
 
         #region OneDimensionalModels : ObservableCollection<OneDimensionalModel> - коллекция одномерных выборок
-        private ObservableCollection<OneDimensionalModel> _OneDimensionalModels;
+        private ObservableCollection<OneDimClusterModel> _OneDimClusterModels;
         /// <summary>
-        /// Коллекция одномерных выборок
+        /// Коллекция кластеров одномерных выборок
         /// </summary>
-        public ObservableCollection<OneDimensionalModel> OneDimensionalModels { get => _OneDimensionalModels; set => Set(ref _OneDimensionalModels, value); }
+        public ObservableCollection<OneDimClusterModel> OneDimClusterModels { get => _OneDimClusterModels; set => Set(ref _OneDimClusterModels, value); }
         #endregion
 
 
