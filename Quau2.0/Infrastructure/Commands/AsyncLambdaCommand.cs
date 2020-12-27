@@ -34,7 +34,6 @@ namespace Quau2._0.Infrastructure.Commands
             _canExecute = canExecute;
             _errorHandler = errorHandler;
         }
-
         public bool CanExecute(object p)
         {
             return !_isExecuting && (_canExecute?.Invoke(p) ?? true);
@@ -47,7 +46,8 @@ namespace Quau2._0.Infrastructure.Commands
                 try
                 {
                     _isExecuting = true;
-                    await _execute(p);
+                    foreach (var el in _execute.GetInvocationList())
+                        await (el as Func<object, Task>).Invoke(p);
                 }
                 finally
                 {

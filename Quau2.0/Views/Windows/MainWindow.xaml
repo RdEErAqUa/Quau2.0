@@ -27,6 +27,7 @@
                                 <DataTemplate>
                                     <StackPanel>
                                         <TextBlock Text="{Binding StringFormat=· {0}, Path=FileName}"/>
+                                        <TextBlock Text="{Binding StringFormat=· {0}, Path=ClassSize}"/>
                                     </StackPanel>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>

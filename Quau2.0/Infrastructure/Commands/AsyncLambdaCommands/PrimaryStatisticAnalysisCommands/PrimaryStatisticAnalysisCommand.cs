@@ -1,8 +1,10 @@
 ﻿using Quau2._0.Infrastructure.Commands.Base.NotifyChangedBaseCommand;
+using Quau2._0.Models.ClusterModels;
 using Quau2._0.Models.OneDimensionalModels;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,15 +15,17 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticA
     class PrimaryStatisticAnalysisCommand : NotifyChangedCommand
     {
         private readonly IPrimaryStatisticAnalysisService _primaryStatisticAnalysisService;
-        private readonly OneDimensionalModel _oneDimensionalModel;
+        private readonly ObservableCollection<OneDimClusterModel> _OneDimClusterModels;
+        private readonly string clusterName;
 
         public PrimaryStatisticAnalysisCommand(IPrimaryStatisticAnalysisService primaryStatisticAnalysisService,
-            OneDimensionalModel oneDimensionalModel)
+            ObservableCollection<OneDimClusterModel> OneDimClusterModels, String ClusterName)
         {
 
             this.CommandRun = new AsyncLambdaCommand(OnExecuted, CanExecute);
             this._primaryStatisticAnalysisService = primaryStatisticAnalysisService;
-            this._oneDimensionalModel = oneDimensionalModel;
+            this._OneDimClusterModels = OneDimClusterModels;
+            this.clusterName = ClusterName;
         }
 
         private bool _isBusyCommand;
@@ -42,7 +46,16 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticA
                 await Task.Run(() =>
                 {
                     //
-                    _primaryStatisticAnalysisService.ClassSizeSet(_oneDimensionalModel);
+                    try
+                    {
+                        var OneDimData = _OneDimClusterModels?.Where(X => X.ClusterName == clusterName)?.First()?.OneDimensionalModels?.Last();
+
+                        _primaryStatisticAnalysisService.ClassSizeSet(OneDimData);
+                    }
+                    catch (System.InvalidOperationException)
+                    {
+                        return;
+                    }
                 });
             }
             finally

@@ -75,6 +75,7 @@ namespace Quau2._0.ViewModels.MenuViewModels
                 {
                     OnPropertyChanged(nameof(ReadDataFromFile));
                     OnPropertyChanged(nameof(PrimaryAnalysis));
+                    OnPropertyChanged(nameof(SomeCommand));
                 }
             }
         }
@@ -96,15 +97,31 @@ namespace Quau2._0.ViewModels.MenuViewModels
         /// <summary>
         /// PrimaryAnalysis - первичный статистический анализ для выборки.
         /// </summary>
-        public ICommand PrimaryAnalysis { get => new PrimaryStatisticAnalysisCommand(_PrimaryStatisticAnalysisService, 
-            OneDimClusterModels
-                .Where(X => X.ClusterName == ClusterName)
-                    .Last()
-                        .OneDimensionalModels.Last())
-                            .CommandRun; }
+        public ICommand PrimaryAnalysis { get => new PrimaryStatisticAnalysisCommand(_PrimaryStatisticAnalysisService,
+            OneDimClusterModels, ClusterName).CommandRun; }
         #endregion
 
         #endregion
+
+        #region
+
+        public ICommand SomeCommand { get => MakeMultipleBindings(ReadDataFromFile as IAsyncCommand, PrimaryAnalysis as IAsyncCommand); }
+
+        #endregion
+
+        public ICommand MakeMultipleBindings(params IAsyncCommand[] asyncCommands)
+        {
+            Func<object, Task> exectue = null;
+            Func<object, bool> canexecute = null;
+
+            foreach(var el in asyncCommands)
+            {
+                exectue += el.ExecuteAsync;
+                canexecute += el.CanExecute;
+            }
+
+            return new AsyncLambdaCommand(exectue, canexecute);
+        }
 
         /// <summary>
         /// Функция, для установки главного окна
