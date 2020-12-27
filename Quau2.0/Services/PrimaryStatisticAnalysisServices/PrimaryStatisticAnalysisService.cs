@@ -10,7 +10,7 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices
 {
     class PrimaryStatisticAnalysisService : IPrimaryStatisticAnalysisService
     {
-        public IClassSizeService classSizeService { get; set; }
+        public IClassSizeService classSizeService { get; }
 
         public PrimaryStatisticAnalysisService(IClassSizeService classSizeService)
         {

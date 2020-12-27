@@ -1,4 +1,5 @@
 ﻿using Quau2._0.Infrastructure.Commands.Base.NotifyChangedBaseCommand;
+using Quau2._0.Models.OneDimensionalModels;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,15 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticA
     class PrimaryStatisticAnalysisCommand : NotifyChangedCommand
     {
         private readonly IPrimaryStatisticAnalysisService _primaryStatisticAnalysisService;
+        private readonly OneDimensionalModel _oneDimensionalModel;
 
-        public PrimaryStatisticAnalysisCommand(IPrimaryStatisticAnalysisService primaryStatisticAnalysisService)
+        public PrimaryStatisticAnalysisCommand(IPrimaryStatisticAnalysisService primaryStatisticAnalysisService,
+            OneDimensionalModel oneDimensionalModel)
         {
 
             this.CommandRun = new AsyncLambdaCommand(OnExecuted, CanExecute);
             this._primaryStatisticAnalysisService = primaryStatisticAnalysisService;
+            this._oneDimensionalModel = oneDimensionalModel;
         }
 
         private bool _isBusyCommand;
@@ -37,6 +41,8 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticA
                 isBusyCommand = true;
                 await Task.Run(() =>
                 {
+                    //
+                    _primaryStatisticAnalysisService.ClassSizeSet(_oneDimensionalModel);
                 });
             }
             finally

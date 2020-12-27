@@ -12,7 +12,7 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces
         /// <summary>
         /// Сервис Class Size
         /// </summary>
-        IClassSizeService classSizeService { get; set; }
+        IClassSizeService classSizeService { get; }
 
         /// <summary>
         /// Установить значение размера класса

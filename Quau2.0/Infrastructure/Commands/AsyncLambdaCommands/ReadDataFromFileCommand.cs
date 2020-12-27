@@ -73,9 +73,7 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands
                             //Проверка на существование кластера с данным названием. 
                             var clusterCount = OneDimClusterModels.Where(X => X.ClusterName == ClusterName).Count();
                             var countValue = clusterCount != 0 ? OneDimClusterModels.Where(X => X.ClusterName == ClusterName).First().OneDimensionalModels.Count : 0;
-
                             //
-
                             var OneDimData = new OneDimensionalModel {
                                 OneDimensionalSampleModels =
                                 new ObservableCollection<Models.OneDimensionalModels.BaseModels.OneDimensionalSampleModel>(DataFromFile.
