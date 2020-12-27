@@ -1,0 +1,39 @@
+﻿<Window x:Class="Quau2._0.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Quau2._0"
+        xmlns:vm="clr-namespace:Quau2._0.ViewModels"
+        xmlns:vucm="clr-namespace:Quau2._0.Views.UserControls.Menu"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        d:DataContext="{d:DesignInstance Type=vm:MainViewModel}"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <vucm:MenuUserControl DataContext="{Binding MenuModel}" DockPanel.Dock="Top"/>
+        <ListBox ItemsSource="{Binding OneDimClusterModels}" Grid.Column="0" DockPanel.Dock="Top">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBox Text="{Binding StringFormat={}{0}:, Path=ClusterName, Mode=OneWay}" />
+                        <ListBox ItemsSource="{Binding OneDimensionalModels}"
+                                 dd:DragDrop.IsDragSource="True"
+                                 dd:DragDrop.IsDropTarget="True">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding StringFormat=· {0}, Path=FileName}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</Window>

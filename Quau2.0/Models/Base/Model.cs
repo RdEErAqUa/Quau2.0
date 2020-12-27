@@ -7,13 +7,13 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quau2._0.ViewModels.Base
+namespace Quau2._0.Models.Base
 {
     /// <summary>
     /// Класс, реализирующий интерфейс INotifyPropertyChanged. Реализация скрытая в NotifyChanged.
-    /// Созданный, для переопределения методов и поле для их дальнейшего использования во всех ViewModel.
+    /// Созданный, для переопределения методов и поле для их дальнейшего использования во всех Model.
     /// </summary>
-    internal abstract class ViewModel : NotifyChanged
+    internal abstract class Model : NotifyChanged
     {
         /// <summary>
         /// 
