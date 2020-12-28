@@ -17,7 +17,7 @@
                     <lvc:CartesianChart Series="{Binding OneDimensionalSeries.OneDimensionalSeries}">
                     </lvc:CartesianChart>
                 </TabItem>
-                <TabItem Header="Графік щільності">
+                <TabItem Header="Емпіричний графік">
                     <lvc:CartesianChart Series="{Binding OneDimensionalSeries.OneDimensionalSeriesProbability}">
                     </lvc:CartesianChart>
                 </TabItem>

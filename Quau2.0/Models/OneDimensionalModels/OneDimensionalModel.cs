@@ -67,5 +67,13 @@ namespace Quau2._0.Models.OneDimensionalModels
         public ObservableCollection<ThreeDimModel> PercentegData { get => _PercentegData; set => Set(ref _PercentegData, value); }
         #endregion
 
+        #region HistogramData : ObservableCollection<ThreeDimModel> - Гистограмная оценка
+        private ObservableCollection<ThreeDimModel> _HistogramData;
+        /// <summary>
+        /// Гистограмная оценка
+        /// </summary>
+        public ObservableCollection<ThreeDimModel> HistogramData { get => _HistogramData; set => Set(ref _HistogramData, value); }
+        #endregion
+
     }
 }

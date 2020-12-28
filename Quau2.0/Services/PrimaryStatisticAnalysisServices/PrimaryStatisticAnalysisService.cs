@@ -1,4 +1,5 @@
 ﻿using Quau2._0.Models.OneDimensionalModels;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.HistogramSeriesServices.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.PercentageSeriesService.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.VariationSeriesServices.Interfaces;
@@ -15,12 +16,15 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices
         public IClassSizeService classSizeService { get; }
         public IVariationSeriesService VariationSeriesService { get; }
         public IPercentageSeriesService PercentageSeriesService { get; }
+        public IHistogramSeriesService HistogramSeriesService { get; }
 
-        public PrimaryStatisticAnalysisService(IClassSizeService classSizeService, IVariationSeriesService variationSeriesService, IPercentageSeriesService percentageSeriesService)
+        public PrimaryStatisticAnalysisService(IClassSizeService classSizeService, IVariationSeriesService variationSeriesService, IPercentageSeriesService percentageSeriesService,
+            IHistogramSeriesService histogramSeriesService)
         {
             this.classSizeService = classSizeService;
             this.VariationSeriesService = variationSeriesService;
             this.PercentageSeriesService = percentageSeriesService;
+            HistogramSeriesService = histogramSeriesService;
         }
         public void PrimaryAnalysisRun(OneDimensionalModel OneDimData)
         {
@@ -30,6 +34,8 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices
             BuildPrimaryVariation(OneDimData);
             //Установка графика плотности
             BuildDivisionInClass(OneDimData);
+            //Установка гистограмной оценки
+            BuildHistogramData(OneDimData);
 
         }
 
@@ -49,6 +55,12 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices
         {
             if (OneDimData == null) return;
             PercentageSeriesService.DivisionInClass(OneDimData);
+        }
+
+        public void BuildHistogramData(OneDimensionalModel OneDimData)
+        {
+            if (OneDimData == null) return;
+            HistogramSeriesService.CreateEmpiricalDataValue(OneDimData);
         }
     }
 }
