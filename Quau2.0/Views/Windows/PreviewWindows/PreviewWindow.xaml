@@ -4,9 +4,42 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Quau2._0.Views.Windows.PreviewWindows"
+        xmlns:dd="urn:gong-wpf-dragdrop"
         mc:Ignorable="d"
         Title="PreviewWindow" Height="450" Width="800">
     <Grid>
-        
+        <ListBox ItemsSource="{Binding OneDimClusterModels}" Grid.Column="0" DockPanel.Dock="Top">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBox Text="{Binding StringFormat={}{0}, Path=ClusterName}" />
+                        <ListBox ItemsSource="{Binding OneDimensionalModels}"
+                                 dd:DragDrop.IsDragSource="True"
+                                 dd:DragDrop.IsDropTarget="True">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding StringFormat=· {0}, Path=FileName}"/>
+                                        <TextBlock Text="{Binding StringFormat=· {0}, Path=ClassSize}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox ItemsSource="{Binding OneDimensionalModels}" Grid.Column="0" DockPanel.Dock="Top"
+                 dd:DragDrop.IsDropTarget="True"
+                 dd:DragDrop.DropHandler="{Binding}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding StringFormat={}{0}, Path=FileName}" />
+                        <TextBox Text="{Binding StringFormat={}{0}, Path=ClassSize}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Window>

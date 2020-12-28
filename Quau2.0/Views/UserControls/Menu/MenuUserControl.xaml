@@ -8,13 +8,15 @@
              d:DataContext="{d:DesignInstance Type=vm:MenuViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Menu>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
-                <MenuItem Header="Додати дані" Command="{Binding ReadDataFromFile}" CommandParameter="0"/>
-                <MenuItem Header="Додати одновимірні дані із файлу" Command="{Binding ReadDataFromFile}" CommandParameter="1"/>
-                <MenuItem Header="Додати двовимирні дані із файлу" Command="{Binding ReadDataFromFile}" CommandParameter="2"/>
+                <MenuItem Header="Додати дані" Command="{Binding SomeCommand}" CommandParameter="0"/>
+                <MenuItem Header="Додати одновимірні дані із файлу" Command="{Binding SomeCommand}" CommandParameter="1"/>
+                <MenuItem Header="Додати двовимирні дані із файлу" Command="{Binding SomeCommand}" CommandParameter="2"/>
+                <MenuItem Header="Okay" Command="{Binding PrimaryAnalysis}"/>
             </MenuItem>
         </Menu>
-    </Grid>
+        <TextBox Text="{Binding ClusterName}"/>
+    </DockPanel>
 </UserControl>
