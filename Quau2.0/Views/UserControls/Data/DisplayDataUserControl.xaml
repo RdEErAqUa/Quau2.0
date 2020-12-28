@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Quau2._0.Views.UserControls.Data.DisplayDataUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Quau2._0.Views.UserControls.Data"
+             xmlns:vm="clr-namespace:Quau2._0.ViewModels.DataViewModels"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             d:DataContext="{d:DesignInstance Type=vm:DisplayDataViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <Button Command="{Binding TestCommand}" Content="Hello" DockPanel.Dock="Top"/>
+        <Grid>
+            <TabControl>
+                <TabItem Header="Графік ймовірностей">
+                    <lvc:CartesianChart Series="{Binding OneDimensionalSeries.OneDimensionalSeries}">
+                    </lvc:CartesianChart>
+                </TabItem>
+                <TabItem Header="Графік щільності">
+                    <lvc:CartesianChart Series="{Binding OneDimensionalSeries.OneDimensionalSeriesProbability}">
+                    </lvc:CartesianChart>
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
+</UserControl>

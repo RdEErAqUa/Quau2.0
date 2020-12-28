@@ -27,6 +27,14 @@ namespace Quau2._0.Models.OneDimensionalModels
         public int ClassSize { get => _ClassSize; set => Set(ref _ClassSize, value); }
         #endregion
 
+        #region StepSize : double - Размер шага для заданого количества классов
+        private double _StepSize;
+        /// <summary>
+        /// Размер шага для заданого количества классов
+        /// </summary>
+        public double StepSize { get => _StepSize; set => Set(ref _StepSize, value); }
+        #endregion
+
         #region OneDimensionalSampleModels : ObservableCollection<OneDimensionalSampleModel> - коллекция, которая хранит представление нашей одномерной выборки
         private ObservableCollection<OneDimensionalSampleModel> _OneDimensionalSampleModels;
         /// <summary>
@@ -41,6 +49,22 @@ namespace Quau2._0.Models.OneDimensionalModels
         /// Коллекция, которая хранит представление одномерной выборки в отсортированом порядке по возрастанию
         /// </summary>
         public ObservableCollection<OneDimensionalSampleModel> OneDimensionalSampleModelsSorted { get => _OneDimensionalSampleModelsSorted; set => Set(ref _OneDimensionalSampleModelsSorted, value); }
+        #endregion
+
+        #region VariationData : ObservableCollection<ThreeDimModel> - коллекция, которая хранит представление о вариационном ряде
+        private ObservableCollection<ThreeDimModel> _VariationData;
+        /// <summary>
+        /// Коллекция, которая хранит представление о вариационном ряде
+        /// </summary>
+        public ObservableCollection<ThreeDimModel> VariationData { get => _VariationData; set => Set(ref _VariationData, value); }
+        #endregion
+
+        #region PercentegData : ObservableCollection<ThreeDimModel> - Функция вероятности(плотности)
+        private ObservableCollection<ThreeDimModel> _PercentegData;
+        /// <summary>
+        /// Функция вероятности(плотности)
+        /// </summary>
+        public ObservableCollection<ThreeDimModel> PercentegData { get => _PercentegData; set => Set(ref _PercentegData, value); }
         #endregion
 
     }

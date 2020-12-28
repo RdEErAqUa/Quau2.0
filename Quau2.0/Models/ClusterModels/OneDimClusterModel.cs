@@ -20,7 +20,18 @@ namespace Quau2._0.Models.ClusterModels
         /// <summary>
         /// Название конкретного кластера
         /// </summary>
-        public String ClusterName { get => _ClusterName; set => Set(ref _ClusterName, value); }
+        public String ClusterName
+        {
+            get => _ClusterName; set
+            {
+                if (OneDimensionalModels != null)
+                    foreach (var el in OneDimensionalModels)
+                    {
+                        el.FileName = el.FileName.Replace(_ClusterName, value);
+                    }
+                Set(ref _ClusterName, value);
+            }
+        }
 
         #endregion
 

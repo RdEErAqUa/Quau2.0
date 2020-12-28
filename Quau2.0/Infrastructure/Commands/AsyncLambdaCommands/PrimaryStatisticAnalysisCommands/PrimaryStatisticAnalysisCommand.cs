@@ -46,11 +46,12 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticA
                 await Task.Run(() =>
                 {
                     //
+                    if (Int32.Parse((string)p) != 1) return;
                     try
                     {
                         var OneDimData = _OneDimClusterModels?.Where(X => X.ClusterName == clusterName)?.First()?.OneDimensionalModels?.Last();
 
-                        _primaryStatisticAnalysisService.ClassSizeSet(OneDimData);
+                        _primaryStatisticAnalysisService.PrimaryAnalysisRun(OneDimData);
                     }
                     catch (System.InvalidOperationException)
                     {

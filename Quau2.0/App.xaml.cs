@@ -15,6 +15,12 @@ using Quau2._0.Services.PrimaryStatisticAnalysisServices.VariationSeriesServices
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.VariationSeriesServices;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices;
+using Quau2._0.Services.Interfaces;
+using Quau2._0.ViewModels.DataViewModels;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.PercentageSeriesService.Interfaces;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.PercentageSeriesService;
+using Quau2._0.Services.SeriesServices.OneDimServices.Interfaces;
+using Quau2._0.Services.SeriesServices.OneDimServices;
 
 namespace Quau2._0
 {
@@ -45,12 +51,19 @@ namespace Quau2._0
             //Сервис первичного статистического анализа
             services.AddTransient<IVariationSeriesService, VariationSeriesService>();
             services.AddTransient<IClassSizeService, ClassSizeService>();
+            services.AddTransient<IPercentageSeriesService, PercentageSeriesService>();
             services.AddTransient<IPrimaryStatisticAnalysisService, PrimaryStatisticAnalysisService>();
+            //Сервис графиков
+            services.AddTransient<IPrimaryAnalysisSeriesService, PrimaryAnalysisSeriesService>();
+            //Сервис мульти-привязки команд
+            services.AddTransient<IMultipleBindingCommand, MultipleBindingCommand>();
             //Сервис Превью модели
             services.AddTransient<PreviewViewModel>();
             //
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<MenuViewModel>();
+            services.AddSingleton<DataViewModel>();
+            services.AddSingleton<DisplayDataViewModel>();
         }
         protected override async void OnStartup(StartupEventArgs e)
         {

@@ -17,6 +17,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.ComponentModel;
+using Quau2._0.Services.Interfaces;
+
 namespace Quau2._0.ViewModels.MenuViewModels
 {
     class MenuViewModel : ViewModel
@@ -34,18 +36,27 @@ namespace Quau2._0.ViewModels.MenuViewModels
         /// Сервис для первичного статистического анализа
         /// </summary>
         private readonly IPrimaryStatisticAnalysisService _PrimaryStatisticAnalysisService;
+        private readonly IMultipleBindingCommand _MultipleBindingCommand;
 
         /// <summary>
         /// Сервис, для предпросмотра выборки
         /// </summary>
         private readonly PreviewViewModel _PreviewModel;
 
-        #region OneDimensionalModels : ObservableCollection<OneDimensionalModel> - коллекция одномерных выборок
+        #region OneDimClusterModels : ObservableCollection<OneDimensionalModel> - коллекция одномерных выборок
         private ObservableCollection<OneDimClusterModel> _OneDimClusterModels;
         /// <summary>
         /// Коллекция кластеров одномерных выборок
         /// </summary>
         public ObservableCollection<OneDimClusterModel> OneDimClusterModels { get => _OneDimClusterModels; set => Set(ref _OneDimClusterModels, value); }
+        #endregion
+
+        #region OneDimensionalModels : ObservableCollection<OneDimensionalModel> - Класс выборок, который используются
+        private ObservableCollection<OneDimensionalModel> _OneDimensionalModels;
+        /// <summary>
+        /// Класс выборок, который используются
+        /// </summary>
+        public ObservableCollection<OneDimensionalModel> OneDimensionalModels { get => _OneDimensionalModels; set => Set(ref _OneDimensionalModels, value); }
         #endregion
 
         #region TwoDimensionalModels : ObservableCollection<TwoDimensionalModel> - коллекция двомерных выборок
@@ -105,23 +116,9 @@ namespace Quau2._0.ViewModels.MenuViewModels
 
         #region
 
-        public ICommand SomeCommand { get => MakeMultipleBindings(ReadDataFromFile as IAsyncCommand, PrimaryAnalysis as IAsyncCommand); }
+        public ICommand SomeCommand { get => _MultipleBindingCommand.AsyncMultipleCommand(ReadDataFromFile as IAsyncCommand, PrimaryAnalysis as IAsyncCommand); }
 
         #endregion
-
-        public ICommand MakeMultipleBindings(params IAsyncCommand[] asyncCommands)
-        {
-            Func<object, Task> exectue = null;
-            Func<object, bool> canexecute = null;
-
-            foreach(var el in asyncCommands)
-            {
-                exectue += el.ExecuteAsync;
-                canexecute += el.CanExecute;
-            }
-
-            return new AsyncLambdaCommand(exectue, canexecute);
-        }
 
         /// <summary>
         /// Функция, для установки главного окна
@@ -145,11 +142,12 @@ namespace Quau2._0.ViewModels.MenuViewModels
         /// <param name="TwoDimensionalConvertService">Сервис, для считывание двомерных выборок</param>
         /// <param name="PreviewModel">Окно превью</param>
         public MenuViewModel(IOneDimensionalConvertService OneDimensionalConverterService, ITwoDimensionalConvertService TwoDimensionalConvertService,
-            IPrimaryStatisticAnalysisService primaryStatisticAnalysisService, PreviewViewModel PreviewModel)
+            IPrimaryStatisticAnalysisService primaryStatisticAnalysisService, IMultipleBindingCommand multipleBindingCommand ,PreviewViewModel PreviewModel)
         {
             this._OneDimensionalConverterService = OneDimensionalConverterService;
             this._TwoDimensionalConvertService = TwoDimensionalConvertService;
             this._PrimaryStatisticAnalysisService = primaryStatisticAnalysisService;
+            this._MultipleBindingCommand = multipleBindingCommand;
             this._PreviewModel = PreviewModel;
         }
     }
