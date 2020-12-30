@@ -75,7 +75,7 @@ namespace Quau2._0.ViewModels.DataViewModels
                 {
 
                     values.Add(primaryAnalysisSeriesService.BuildStepLineSeries(el.PercentegData));
-                    values2.Add(primaryAnalysisSeriesService.BuildStepLineSeries(el.PercentegData));
+                    values2.Add(primaryAnalysisSeriesService.BuildStepLineSeries(el.HistogramData));
                 }
                 OneDimensionalSeries.OneDimensionalSeries = values;
                 OneDimensionalSeries.OneDimensionalSeriesProbability = values2;
