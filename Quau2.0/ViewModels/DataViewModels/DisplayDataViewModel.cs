@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Quau2._0.ViewModels.DataViewModels
 {
@@ -75,12 +76,13 @@ namespace Quau2._0.ViewModels.DataViewModels
                 {
 
                     values.Add(primaryAnalysisSeriesService.BuildStepLineSeries(el.PercentegData));
-                    values2.Add(primaryAnalysisSeriesService.BuildStepLineSeries(el.HistogramData));
+                    values2.Add(primaryAnalysisSeriesService.BuildStepLineSeries(el.HistogramData, new SolidColorBrush()));
                 }
                 OneDimensionalSeries.OneDimensionalSeries = values;
                 OneDimensionalSeries.OneDimensionalSeriesProbability = values2;
             });
         }
+
 
         /// <summary>
         /// Функция, для установки главного окна

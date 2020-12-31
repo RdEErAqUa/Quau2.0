@@ -28,6 +28,11 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices.HistogramSeriesServ
                     answer.Add(new ThreeDimModel { X = Math.Round(el.X, RoundValue), P = Math.Round(pz, RoundValue) });
                 }
             }
+
+            var testP = 0.0;
+            foreach (var el in oneDimensionalSampleModel.PercentegData)
+                testP += el.P;
+
             oneDimensionalSampleModel.HistogramData = answer;
         }
     }

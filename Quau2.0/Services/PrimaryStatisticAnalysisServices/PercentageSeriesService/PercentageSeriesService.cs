@@ -84,10 +84,10 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices.PercentageSeriesSer
 
             foreach (var el in xDivisionFrequency)
             {
-                RelativeFrequencyDivision.Add((double)el / (double)oneDimensionalSampleModel.VariationData.Count);
+                RelativeFrequencyDivision.Add((double)el / (double)oneDimensionalSampleModel.OneDimensionalSampleModels.Count);
             }
 
-            return RelativeFrequencyDivision;
+            return RelativeFrequencyDivision; 
         }
     }
 }
