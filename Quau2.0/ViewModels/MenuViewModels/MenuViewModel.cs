@@ -106,7 +106,8 @@ namespace Quau2._0.ViewModels.MenuViewModels
 
         #region PrimaryAnalysis - первичный статистический анализ для выборки
         /// <summary>
-        /// PrimaryAnalysis - первичный статистический анализ для выборки.
+        /// PrimaryAnalysis - первичный статистический анализ для выборки. Также устанавливается для каждой выборки ссылка на сервис
+        /// первичного статистического анализа. При обновлении ClassSize, запускается повторный первичный анализ. 
         /// </summary>
         public ICommand PrimaryAnalysis { get => new PrimaryStatisticAnalysisCommand(_PrimaryStatisticAnalysisService,
             OneDimClusterModels, ClusterName).CommandRun; }

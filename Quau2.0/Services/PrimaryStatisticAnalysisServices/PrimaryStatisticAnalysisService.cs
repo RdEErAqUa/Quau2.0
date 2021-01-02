@@ -41,7 +41,7 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices
 
         public void ClassSizeSet(OneDimensionalModel OneDimData)
         {
-            if (OneDimData == null || OneDimData.ClassSize != 0) return;
+            if (OneDimData == null || OneDimData.ClassSize > 0) return;
             OneDimData.ClassSize = (int)Math.Ceiling(classSizeService.SizeClassesFind(OneDimData.OneDimensionalSampleModels));
         }
 

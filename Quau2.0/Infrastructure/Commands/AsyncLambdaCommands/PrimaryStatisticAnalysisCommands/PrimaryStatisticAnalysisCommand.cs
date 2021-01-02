@@ -56,7 +56,8 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticA
                 {
                     //
                     if (Int32.Parse((string)p) != 1 || !setOneDim()) return;
-                        this._primaryStatisticAnalysisService.PrimaryAnalysisRun(this._OneDimensionalModels);
+                    this._primaryStatisticAnalysisService.PrimaryAnalysisRun(this._OneDimensionalModels);
+                    this._OneDimensionalModels.SetAnalysis(this._primaryStatisticAnalysisService);
                 });
             }
             finally
