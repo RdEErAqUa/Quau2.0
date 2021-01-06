@@ -23,6 +23,8 @@ using Quau2._0.Services.SeriesServices.OneDimServices.Interfaces;
 using Quau2._0.Services.SeriesServices.OneDimServices;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.HistogramSeriesServices.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.HistogramSeriesServices;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.ParameterServices.Interfaces;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.ParameterServices;
 
 namespace Quau2._0
 {
@@ -55,6 +57,7 @@ namespace Quau2._0
             services.AddTransient<IClassSizeService, ClassSizeService>();
             services.AddTransient<IPercentageSeriesService, PercentageSeriesService>();
             services.AddTransient<IPrimaryStatisticAnalysisService, PrimaryStatisticAnalysisService>();
+            services.AddTransient<IQuantativeCharacteristicSerivce, QuantativeCharacteristicSerivce>();
             //Сервис графиков
             services.AddTransient<IPrimaryAnalysisSeriesService, PrimaryAnalysisSeriesService>();
             services.AddTransient<IHistogramSeriesService, HistogramSeriesService>();

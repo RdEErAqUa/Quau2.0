@@ -1,5 +1,7 @@
-﻿using Quau2._0.Models.Base;
+﻿using Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticAnalysisCommands;
+using Quau2._0.Models.Base;
 using Quau2._0.Models.OneDimensionalModels.BaseModels;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +13,11 @@ namespace Quau2._0.Models.OneDimensionalModels
 {
     class OneDimensionalModel : Model
     {
+        /// <summary>
+        /// Сервис первичного статистического анализа
+        /// </summary>
+        private IPrimaryStatisticAnalysisService primaryStatisticAnalysisService;
+
         #region FileName : String - название файла, в котором хранилась выборка
         private String _FileName;
         /// <summary>
@@ -22,9 +29,10 @@ namespace Quau2._0.Models.OneDimensionalModels
         #region ClassSize : int - размер класса, на которую разбита выборка
         private int _ClassSize;
         /// <summary>
-        /// Размер класса, на которую разбита выборка
+        /// Размер класса, на которую разбита выборка.
+        /// При изменении начинает статистический анализ.
         /// </summary>
-        public int ClassSize { get => _ClassSize; set => Set(ref _ClassSize, value); }
+        public int ClassSize { get => _ClassSize; set { Set(ref _ClassSize, value); StatisticAnalysisRun(); } }
         #endregion
 
         #region StepSize : double - Размер шага для заданого количества классов
@@ -69,11 +77,36 @@ namespace Quau2._0.Models.OneDimensionalModels
 
         #region HistogramData : ObservableCollection<ThreeDimModel> - Гистограмная оценка
         private ObservableCollection<ThreeDimModel> _HistogramData;
+
         /// <summary>
         /// Гистограмная оценка
         /// </summary>
         public ObservableCollection<ThreeDimModel> HistogramData { get => _HistogramData; set => Set(ref _HistogramData, value); }
         #endregion
 
+        #region ParameterData : ObservableCollection<OneDimParameter> - коллекция параметров
+
+        private ObservableCollection<OneDimParameter> _ParameterData;
+        /// <summary>
+        /// Коллекция параметров выборки  
+        /// </summary>
+        public ObservableCollection<OneDimParameter> ParameterData { get => _ParameterData; set => Set(ref _ParameterData, value); }
+
+        #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void SetAnalysis(IPrimaryStatisticAnalysisService _PrimaryStatisticAnalysisService)
+        {
+            this.primaryStatisticAnalysisService = _PrimaryStatisticAnalysisService;
+        }
+        private void StatisticAnalysisRun()
+        {
+            if (this.primaryStatisticAnalysisService == null) return;
+            var analysis = new PrimaryStatisticAnalysisCommand(this.primaryStatisticAnalysisService, this).CommandRun;
+            if (analysis.CanExecute("1"))
+                analysis.Execute("1");
+        }
     }
 }

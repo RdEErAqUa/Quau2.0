@@ -32,7 +32,6 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices.VariationSeriesServ
                      N = dataSampleFrequency[i],
                      P = DataRelativeFrequency[i]
                  });
-
             oneDimensionalSampleModel.VariationData = new ObservableCollection<ThreeDimModel>(SampleRankingData);
         }
 

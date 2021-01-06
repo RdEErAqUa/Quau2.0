@@ -15,8 +15,17 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticA
     class PrimaryStatisticAnalysisCommand : NotifyChangedCommand
     {
         private readonly IPrimaryStatisticAnalysisService _primaryStatisticAnalysisService;
+        private OneDimensionalModel _OneDimensionalModels;
         private readonly ObservableCollection<OneDimClusterModel> _OneDimClusterModels;
         private readonly string clusterName;
+        public PrimaryStatisticAnalysisCommand(IPrimaryStatisticAnalysisService primaryStatisticAnalysisService,
+            OneDimensionalModel OneDimensionalModels)
+        {
+
+            this.CommandRun = new AsyncLambdaCommand(OnExecuted, CanExecute);
+            this._primaryStatisticAnalysisService = primaryStatisticAnalysisService;
+            this._OneDimensionalModels = OneDimensionalModels;
+        }
 
         public PrimaryStatisticAnalysisCommand(IPrimaryStatisticAnalysisService primaryStatisticAnalysisService,
             ObservableCollection<OneDimClusterModel> OneDimClusterModels, String ClusterName)
@@ -46,17 +55,9 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticA
                 await Task.Run(() =>
                 {
                     //
-                    if (Int32.Parse((string)p) != 1) return;
-                    try
-                    {
-                        var OneDimData = _OneDimClusterModels?.Where(X => X.ClusterName == clusterName)?.First()?.OneDimensionalModels?.Last();
-
-                        _primaryStatisticAnalysisService.PrimaryAnalysisRun(OneDimData);
-                    }
-                    catch (System.InvalidOperationException)
-                    {
-                        return;
-                    }
+                    if (Int32.Parse((string)p) != 1 || !setOneDim()) return;
+                    this._primaryStatisticAnalysisService.PrimaryAnalysisRun(this._OneDimensionalModels);
+                    this._OneDimensionalModels.SetAnalysis(this._primaryStatisticAnalysisService);
                 });
             }
             finally
@@ -68,6 +69,19 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticA
         private bool CanExecute(object p)
         {
             return !isBusyCommand;
+        }
+        private bool setOneDim()
+        {
+            if (this._OneDimClusterModels != null)
+                try
+                {
+                    this._OneDimensionalModels = _OneDimClusterModels?.Where(X => X.ClusterName == clusterName)?.First()?.OneDimensionalModels?.Last();
+                }
+                catch (System.InvalidOperationException)
+                {
+                    return false;
+                }
+            return true;
         }
     }
 }

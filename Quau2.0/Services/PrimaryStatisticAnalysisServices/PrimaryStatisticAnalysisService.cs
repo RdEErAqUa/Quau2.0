@@ -1,6 +1,7 @@
 ﻿using Quau2._0.Models.OneDimensionalModels;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.HistogramSeriesServices.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.ParameterServices.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.PercentageSeriesService.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.VariationSeriesServices.Interfaces;
 using System;
@@ -17,14 +18,16 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices
         public IVariationSeriesService VariationSeriesService { get; }
         public IPercentageSeriesService PercentageSeriesService { get; }
         public IHistogramSeriesService HistogramSeriesService { get; }
+        public IQuantativeCharacteristicSerivce QuantativeCharacteristicSerivce { get; }
 
         public PrimaryStatisticAnalysisService(IClassSizeService classSizeService, IVariationSeriesService variationSeriesService, IPercentageSeriesService percentageSeriesService,
-            IHistogramSeriesService histogramSeriesService)
+            IHistogramSeriesService histogramSeriesService, IQuantativeCharacteristicSerivce quantativeCharacteristicSerivce)
         {
             this.classSizeService = classSizeService;
             this.VariationSeriesService = variationSeriesService;
             this.PercentageSeriesService = percentageSeriesService;
             HistogramSeriesService = histogramSeriesService;
+            QuantativeCharacteristicSerivce = quantativeCharacteristicSerivce;
         }
         public void PrimaryAnalysisRun(OneDimensionalModel OneDimData)
         {
@@ -36,12 +39,18 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices
             BuildDivisionInClass(OneDimData);
             //Установка гистограмной оценки
             BuildHistogramData(OneDimData);
+            //
+            BuildQuantativeCharachteristics(OneDimData);
 
         }
-
-        public void ClassSizeSet(OneDimensionalModel OneDimData)
+        public void BuildQuantativeCharachteristics(OneDimensionalModel OneDimData)
         {
             if (OneDimData == null) return;
+            QuantativeCharacteristicSerivce.BuildQuantativeCharacteristic(OneDimData);
+        }
+        public void ClassSizeSet(OneDimensionalModel OneDimData)
+        {
+            if (OneDimData == null || OneDimData.ClassSize > 0) return;
             OneDimData.ClassSize = (int)Math.Ceiling(classSizeService.SizeClassesFind(OneDimData.OneDimensionalSampleModels));
         }
 
