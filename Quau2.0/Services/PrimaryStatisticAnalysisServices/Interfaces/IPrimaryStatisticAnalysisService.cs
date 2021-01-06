@@ -38,5 +38,11 @@ namespace Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces
         /// </summary>
         /// <param name="OneDimData"></param>
         void BuildPrimaryVariation(OneDimensionalModel OneDimData);
+
+        /// <summary>
+        /// Построить статистические характеристики
+        /// </summary>
+        /// <param name="OneDimData"></param>
+        void BuildQuantativeCharachteristics(OneDimensionalModel OneDimData);
     }
 }
