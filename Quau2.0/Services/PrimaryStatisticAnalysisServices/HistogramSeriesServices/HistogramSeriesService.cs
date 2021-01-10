@@ -1,33 +1,30 @@
-﻿using Quau2._0.Models.OneDimensionalModels;
-using Quau2._0.Services.PrimaryStatisticAnalysisServices.HistogramSeriesServices.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Quau2._0.Models.OneDimensionalModels;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.HistogramSeriesServices.Interfaces;
 
 namespace Quau2._0.Services.PrimaryStatisticAnalysisServices.HistogramSeriesServices
 {
-    class HistogramSeriesService : IHistogramSeriesService
+    internal class HistogramSeriesService : IHistogramSeriesService
     {
         public void CreateEmpiricalDataValue(OneDimensionalModel oneDimensionalSampleModel, int RoundValue = 0)
         {
             if (RoundValue <= 0 || RoundValue > 15) RoundValue = 15;
-            ObservableCollection<ThreeDimModel> answer = new ObservableCollection<ThreeDimModel> { };
+            var answer = new ObservableCollection<ThreeDimModel>();
 
-            double pz = oneDimensionalSampleModel.PercentegData.First().P;
+            var pz = oneDimensionalSampleModel.PercentegData.First().P;
 
-            answer.Add(new ThreeDimModel { X = oneDimensionalSampleModel.PercentegData.First().X, P = pz });
+            answer.Add(new ThreeDimModel {X = oneDimensionalSampleModel.PercentegData.First().X, P = pz});
             foreach (var el in oneDimensionalSampleModel.PercentegData)
-            {
-                if (el == oneDimensionalSampleModel.PercentegData.First()) continue;
+                if (el == oneDimensionalSampleModel.PercentegData.First())
+                {
+                }
                 else
                 {
                     pz += el.P;
-                    answer.Add(new ThreeDimModel { X = Math.Round(el.X, RoundValue), P = Math.Round(pz, RoundValue) });
+                    answer.Add(new ThreeDimModel {X = Math.Round(el.X, RoundValue), P = Math.Round(pz, RoundValue)});
                 }
-            }
 
             var testP = 0.0;
             foreach (var el in oneDimensionalSampleModel.PercentegData)

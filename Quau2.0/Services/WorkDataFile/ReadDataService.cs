@@ -1,26 +1,19 @@
-﻿using Quau2._0.Services.WorkDataFile.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
+using Quau2._0.Services.WorkDataFile.Interfaces;
 
 namespace Quau2._0.Services.WorkDataFile
 {
-    class ReadDataService : IReadDataService
+    internal class ReadDataService : IReadDataService
     {
-        public string ReadData(String PATH)
+        public string ReadData(string PATH)
         {
             if (File.Exists(PATH))
-            {
-                using (StreamReader reader = new StreamReader(PATH))
+                using (var reader = new StreamReader(PATH))
                 {
                     return reader.ReadToEnd();
                 }
-            }
-            else
-                return null;
+
+            return null;
         }
     }
 }

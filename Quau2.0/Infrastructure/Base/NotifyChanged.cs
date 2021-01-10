@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-
 namespace Quau2._0.Infrastructure.Base
 {
     internal abstract class NotifyChanged : INotifyPropertyChanged
@@ -19,7 +18,6 @@ namespace Quau2._0.Infrastructure.Base
             field = value;
             OnPropertyChanged(PropertyName);
             return true;
-
         }
     }
 }

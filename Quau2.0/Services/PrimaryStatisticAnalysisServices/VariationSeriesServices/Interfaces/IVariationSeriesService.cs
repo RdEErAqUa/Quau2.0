@@ -2,7 +2,7 @@
 
 namespace Quau2._0.Services.PrimaryStatisticAnalysisServices.VariationSeriesServices.Interfaces
 {
-    interface IVariationSeriesService
+    internal interface IVariationSeriesService
     {
         void BuildVariation(OneDimensionalModel oneDimensionalSampleModel);
     }

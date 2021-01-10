@@ -1,16 +1,13 @@
-﻿using Quau2._0.Infrastructure.Commands;
-using Quau2._0.Infrastructure.Commands.Base;
-using Quau2._0.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Quau2._0.Infrastructure.Commands;
+using Quau2._0.Infrastructure.Commands.Base;
+using Quau2._0.Services.Interfaces;
 
 namespace Quau2._0.Services
 {
-    class MultipleBindingCommand : IMultipleBindingCommand
+    internal class MultipleBindingCommand : IMultipleBindingCommand
     {
         public ICommand AsyncMultipleCommand(params IAsyncCommand[] asyncCommands)
         {
