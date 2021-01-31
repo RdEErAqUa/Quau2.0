@@ -15,6 +15,14 @@
                 <MenuItem Header="Додати одновимірні дані із файлу" Command="{Binding SomeCommand}" CommandParameter="1"/>
                 <MenuItem Header="Додати двовимирні дані із файлу" Command="{Binding SomeCommand}" CommandParameter="2"/>
                 <MenuItem Header="Okay" Command="{Binding PrimaryAnalysis}"/>
+                <MenuItem Header="Квантилі">
+                    <MenuItem Header="Зчитати квантилі" Command="{Binding ReadFromJson}"/>
+                    <MenuItem Header="Зберегти квантилі" Command="{Binding WriteInJson}"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem Header="Распределение">
+                <MenuItem Header="Нормальное" Command="{Binding DistributionStart}" CommandParameter="0"/>
+                <MenuItem Header="Экспоненциальное" Command="{Binding DistributionStart}" CommandParameter="1"/>
             </MenuItem>
         </Menu>
         <TextBox Text="{Binding ClusterName}"/>

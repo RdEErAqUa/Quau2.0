@@ -1,7 +1,10 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media;
 using LiveCharts;
+using LiveCharts.Wpf;
+using OxyPlot;
 using Quau2._0.Infrastructure.Commands;
 using Quau2._0.Models.ClusterModels;
 using Quau2._0.Models.OneDimensionalModels;
@@ -45,13 +48,17 @@ namespace Quau2._0.ViewModels.DataViewModels
         public ICommand TestCommand =>
             new LambdaCommand(p =>
             {
-                var values = new SeriesCollection();
-                var values2 = new SeriesCollection();
+                var values = new PlotModel();
+                var values2 = new PlotModel();
                 foreach (var el in OneDimensionalModels)
                 {
-                    values.Add(primaryAnalysisSeriesService.BuildStepLineSeries(el.PercentegData));
-                    values2.Add(
-                        primaryAnalysisSeriesService.BuildStepLineSeries(el.HistogramData, new SolidColorBrush()));
+                    values.Series.Add(primaryAnalysisSeriesService.BuildStepLineSeriesOxy(el.PercentegData));
+                    if(el.Distribution != null && el.Distribution.DataDensity != null)
+                        values.Series.Add(primaryAnalysisSeriesService.BuildLineOxy(el.Distribution.DataDensity, 5));
+                    values2.Series.Add(
+                        primaryAnalysisSeriesService.BuildStepLineSeriesOxy(el.HistogramData, 5, false));
+                    if (el.Distribution != null && el.Distribution.DataProbability != null)
+                        values2.Series.Add(primaryAnalysisSeriesService.BuildLineOxy(el.Distribution.DataProbability, 5));
                 }
 
                 OneDimensionalSeries.OneDimensionalSeries = values;

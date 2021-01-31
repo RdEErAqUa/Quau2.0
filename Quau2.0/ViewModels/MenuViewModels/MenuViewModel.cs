@@ -1,13 +1,20 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Quau2._0.Infrastructure.Commands;
 using Quau2._0.Infrastructure.Commands.AsyncLambdaCommands;
+using Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.JsonCommands.JsonQuantileCommands;
 using Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticAnalysisCommands;
 using Quau2._0.Infrastructure.Commands.Base;
 using Quau2._0.Models.ClusterModels;
 using Quau2._0.Models.OneDimensionalModels;
+using Quau2._0.Models.OneDimensionalModels.DistributionModels;
+using Quau2._0.Models.ParameterEstimateModels;
 using Quau2._0.Models.TwoDimensionalModels;
 using Quau2._0.Services.Interfaces;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.DistributionServices.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces;
+using Quau2._0.Services.QuantileServices.Interfaces;
 using Quau2._0.Services.WorkDataFile.Interfaces;
 using Quau2._0.ViewModels.Base;
 using Quau2._0.ViewModels.PreviewViewModels;
@@ -59,8 +66,11 @@ namespace Quau2._0.ViewModels.MenuViewModels
         public MenuViewModel(IOneDimensionalConvertService OneDimensionalConverterService,
             ITwoDimensionalConvertService TwoDimensionalConvertService,
             IPrimaryStatisticAnalysisService primaryStatisticAnalysisService,
-            IMultipleBindingCommand multipleBindingCommand, PreviewViewModel PreviewModel)
+            IMultipleBindingCommand multipleBindingCommand,  IQuantileService quantileService, IDistributionService distribution, IDistributionConsentService distributionConsent,PreviewViewModel PreviewModel)
         {
+            _distributionConsent = distributionConsent;
+            _distribution = distribution;
+            _quantileService = quantileService;
             _OneDimensionalConverterService = OneDimensionalConverterService;
             _TwoDimensionalConvertService = TwoDimensionalConvertService;
             _PrimaryStatisticAnalysisService = primaryStatisticAnalysisService;
@@ -133,6 +143,9 @@ namespace Quau2._0.ViewModels.MenuViewModels
         #region ClusterName : String - название кластера
 
         private string _ClusterName = "general";
+        private IQuantileService _quantileService;
+        private IDistributionService _distribution;
+        private IDistributionConsentService _distributionConsent;
 
         /// <summary>
         ///     ClusterName - название кластера. При его смене, меняется и команда ReadDataFromFile и PrimaryAnalysis
@@ -167,6 +180,41 @@ namespace Quau2._0.ViewModels.MenuViewModels
 
         #endregion
 
+        #region WriteInJson - записать квантили в json файл
+
+        public ICommand WriteInJson =>
+            new WriteInJsonCommand(_quantileService).CommandRun;
+
+        #endregion
+
+        #region ReadFromJson - вытащить квантили в json файл
+        public ICommand ReadFromJson =>
+            new ReadFromJsonCommand(_quantileService).CommandRun;
+
+        #endregion
+
+        #region Distribution - построить распределение
+        public ICommand DistributionStart => new AsyncLambdaCommand(async (object p) =>
+            {
+                foreach (var el in OneDimensionalModels)
+                {
+                    el.Distribution = new DistributionModel
+                    {
+                        DataDensity = _distribution.DensityDistributionBuild(el, int.Parse((string)p)),
+                        DataProbability = _distribution.ProbabilityDistributionBuild(el, int.Parse((string)p)),
+                    };
+
+                    el.Distribution.Parameter = new ObservableCollection<ParameterEstimate> { _distributionConsent.KolmogorovTest(el), _distributionConsent.PearsonTest(el) };
+                }
+            }
+        );
+
+
+        #endregion
+
+        #endregion
+
+
         #region PrimaryAnalysis - первичный статистический анализ для выборки
 
         /// <summary>
@@ -177,8 +225,6 @@ namespace Quau2._0.ViewModels.MenuViewModels
         public ICommand PrimaryAnalysis =>
             new PrimaryStatisticAnalysisCommand(_PrimaryStatisticAnalysisService,
                 OneDimClusterModels, ClusterName).CommandRun;
-
-        #endregion
 
         #endregion
     }

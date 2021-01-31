@@ -4,62 +4,62 @@ namespace Quau2._0.Models.OneDimensionalModels
 {
     internal class OneDimParameter : Model
     {
-        #region ParamName : string - название параметра
+        #region Name : string - название параметра
 
-        private string _ParamName;
+        private string _Name;
 
         /// <summary>
         ///     Название параметра
         /// </summary>
-        public string ParamName
+        public string Name
         {
-            get => _ParamName;
-            set => Set(ref _ParamName, value);
+            get => _Name;
+            set => Set(ref _Name, value);
         }
 
         #endregion
 
-        #region ParamValue : double - значение  параметра
+        #region Value : double - значение  параметра
 
-        private double _ParamValue;
+        private double _Value;
 
         /// <summary>
         ///     Значение параметра
         /// </summary>
-        public double ParamValue
+        public double Value
         {
-            get => _ParamValue;
-            set => Set(ref _ParamValue, value);
+            get => _Value;
+            set => Set(ref _Value, value);
         }
 
         #endregion
 
-        #region MaxParamValue : double - верхня межа довірчого інтервала
+        #region MaxValue : double - верхня межа довірчого інтервала
 
-        private double _MaxParamValue;
+        private double _MaxValue;
 
         /// <summary>
         ///     Верхня межа довірчого інтервала
         /// </summary>
-        public double MaxParamValue
+        public double MaxValue
         {
-            get => _MaxParamValue;
-            set => Set(ref _MaxParamValue, value);
+            get => _MaxValue;
+            set => Set(ref _MaxValue, value);
         }
 
         #endregion
 
-        #region MinParamValue : double - нижня межа довірчого інтервала
+        #region MinValue : double - нижня межа довірчого інтервала
 
-        private double _MinParamValue;
+        private double _MinValue;
 
         /// <summary>
         ///     Нижня межа довірчого інтервала
         /// </summary>
-        public double MinParamValue
+        public double MinValue
         {
-            get => _MinParamValue;
-            set => Set(ref _MinParamValue, value);
+            get => _MinValue;
+            set => Set(ref _MinValue, value);
         }
 
         #endregion

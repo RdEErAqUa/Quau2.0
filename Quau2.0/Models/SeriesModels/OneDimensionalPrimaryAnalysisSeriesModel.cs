@@ -1,5 +1,5 @@
-﻿using LiveCharts;
-using Quau2._0.Models.Base;
+﻿using OxyPlot;
+using Model = Quau2._0.Models.Base.Model;
 
 namespace Quau2._0.Models.SeriesModels
 {
@@ -7,12 +7,12 @@ namespace Quau2._0.Models.SeriesModels
     {
         #region OneDimensionalSeries : SeriesCollection - серия одномерных выборок, для функции плотности
 
-        private SeriesCollection _OneDimensionalSeries;
+        private PlotModel _OneDimensionalSeries;
 
         /// <summary>
         ///     Серия одномерных выборок, для функции плотности
         /// </summary>
-        public SeriesCollection OneDimensionalSeries
+        public PlotModel OneDimensionalSeries
         {
             get => _OneDimensionalSeries;
             set => Set(ref _OneDimensionalSeries, value);
@@ -22,12 +22,12 @@ namespace Quau2._0.Models.SeriesModels
 
         #region OneDimensionalSeriesProbability : SeriesCollection - серия одномерных выборок, для функции вероятности
 
-        private SeriesCollection _OneDimensionalSeriesProbability;
+        private PlotModel _OneDimensionalSeriesProbability;
 
         /// <summary>
         ///     Серия одномерных выборок, для функции вероятности
         /// </summary>
-        public SeriesCollection OneDimensionalSeriesProbability
+        public PlotModel OneDimensionalSeriesProbability
         {
             get => _OneDimensionalSeriesProbability;
             set => Set(ref _OneDimensionalSeriesProbability, value);

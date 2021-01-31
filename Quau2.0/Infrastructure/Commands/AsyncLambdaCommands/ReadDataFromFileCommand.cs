@@ -95,6 +95,7 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands
                                         DataFromFile.Select(X => new OneDimensionalSampleModel {X = X, Y = 0})),
                                 FileName = $"{ClusterName}/OneDimSample/" +
                                            $"{countValue}",
+                                Name = $"{ClusterName}_{countValue}",
                                 OneDimensionalSampleModelsSorted =
                                     new ObservableCollection<OneDimensionalSampleModel>(DataFromFile
                                         .Select(X => new OneDimensionalSampleModel {X = X, Y = 0}).OrderBy(X => X.X))

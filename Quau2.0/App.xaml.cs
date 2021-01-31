@@ -16,6 +16,8 @@ using Quau2._0.Services.PrimaryStatisticAnalysisServices.VariationSeriesServices
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices;
 using Quau2._0.Services.Interfaces;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.DistributionServices;
+using Quau2._0.Services.PrimaryStatisticAnalysisServices.DistributionServices.Interfaces;
 using Quau2._0.ViewModels.DataViewModels;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.PercentageSeriesService.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.PercentageSeriesService;
@@ -25,6 +27,12 @@ using Quau2._0.Services.PrimaryStatisticAnalysisServices.HistogramSeriesServices
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.HistogramSeriesServices;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.ParameterServices.Interfaces;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.ParameterServices;
+using Quau2._0.Services.QuantileServices;
+using Quau2._0.Services.QuantileServices.Interfaces;
+using Quau2._0.Services.WorkDataFile.JsonReaderServices;
+using Quau2._0.Services.WorkDataFile.JsonReaderServices.Interfaces;
+using Quau2._0.Services.WorkDataFile.JsonWriteServices;
+using Quau2._0.Services.WorkDataFile.JsonWriteServices.Interfaces;
 
 namespace Quau2._0
 {
@@ -52,12 +60,18 @@ namespace Quau2._0
             services.AddScoped<ITwoDimensionalConvertService, TwoDimensionalConvertService>();
             services.AddTransient<ISaveDialogService, SaveDialogService>();
             services.AddTransient<IReadDataService, ReadDataService>();
+            //Сервис для считывание выборки из json file
+            services.AddSingleton<IQuantileService, QuantileService>();
+            services.AddTransient<IJsonReadService, JsonReadService>();
+            services.AddTransient<IJsonWriteService, JsonWriteService>();
             //Сервис первичного статистического анализа
             services.AddTransient<IVariationSeriesService, VariationSeriesService>();
-            services.AddTransient<IClassSizeService, ClassSizeService>();
+            services.AddTransient<IClassSizeService, ClassSizeService>(); 
             services.AddTransient<IPercentageSeriesService, PercentageSeriesService>();
             services.AddTransient<IPrimaryStatisticAnalysisService, PrimaryStatisticAnalysisService>();
             services.AddTransient<IQuantativeCharacteristicSerivce, QuantativeCharacteristicSerivce>();
+            services.AddTransient<IDistributionService, DistributionService>();
+            services.AddTransient<IDistributionConsentService, DistributionConsentService>();
             //Сервис графиков
             services.AddTransient<IPrimaryAnalysisSeriesService, PrimaryAnalysisSeriesService>();
             services.AddTransient<IHistogramSeriesService, HistogramSeriesService>();

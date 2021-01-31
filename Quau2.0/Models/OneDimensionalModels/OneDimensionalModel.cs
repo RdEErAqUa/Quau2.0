@@ -1,7 +1,9 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticAnalysisCommands;
 using Quau2._0.Models.Base;
 using Quau2._0.Models.OneDimensionalModels.BaseModels;
+using Quau2._0.Models.OneDimensionalModels.DistributionModels;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces;
 
 namespace Quau2._0.Models.OneDimensionalModels
@@ -39,6 +41,21 @@ namespace Quau2._0.Models.OneDimensionalModels
         {
             get => _FileName;
             set => Set(ref _FileName, value);
+        }
+
+        #endregion
+
+        #region Name : string - Название выборки
+
+        private string _Name;
+
+        /// <summary>
+        ///     Название выборки, для сохранения в json
+        /// </summary>
+        public string Name
+        {
+            get => _Name;
+            set => Set(ref _Name, value);
         }
 
         #endregion
@@ -167,5 +184,24 @@ namespace Quau2._0.Models.OneDimensionalModels
         }
 
         #endregion
+
+        #region Distribution : DistributionModel - коллекция распределений
+
+        private DistributionModel _Distribution;
+
+        public DistributionModel Distribution
+        {
+            get => _Distribution;
+            set => Set(ref _Distribution, value);
+        }
+
+        #endregion
+
+        public double GetParameter(string name)
+        {
+            var temp = ParameterData.Where(X => X.Name.Equals(name)).FirstOrDefault();
+            if (temp == null) return 0;
+            return temp.Value;
+        }
     }
 }

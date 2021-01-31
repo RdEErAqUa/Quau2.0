@@ -16,16 +16,23 @@
     </Window.DataContext>
     <DockPanel>
         <vucm:MenuUserControl DataContext="{Binding MenuModel}" DockPanel.Dock="Top"/>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*" MinHeight="200"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="0.3*" MinHeight="100"/>
-            </Grid.RowDefinitions>
-            <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3"
+        <TabControl>
+            <TabItem Header="2d">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" MinHeight="200"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="0.3*" MinHeight="100"/>
+                    </Grid.RowDefinitions>
+                    <GridSplitter Grid.Row="1" ShowsPreview="False" Height="3"
         VerticalAlignment="Center" HorizontalAlignment="Stretch"  />
-            <vucd:DisplayDataUserControl Grid.Row="0" DataContext="{Binding DisplayDataModel}" DockPanel.Dock="Top" MinHeight="300"/>
-            <vucd:DataUserControl  Grid.Row="2" DataContext="{Binding DataModel}" DockPanel.Dock="Top"/>
-        </Grid>
+                    <vucd:DisplayDataUserControl Grid.Row="0" DataContext="{Binding DisplayDataModel}" DockPanel.Dock="Top" MinHeight="300"/>
+                    <vucd:DataUserControl  Grid.Row="2" DataContext="{Binding DataModel}" DockPanel.Dock="Top"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="3d">
+
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </Window>
