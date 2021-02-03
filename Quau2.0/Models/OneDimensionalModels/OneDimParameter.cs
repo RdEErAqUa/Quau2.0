@@ -1,62 +1,81 @@
 ﻿using Quau2._0.Models.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quau2._0.Models.OneDimensionalModels
 {
-    class OneDimParameter : Model
+    internal class OneDimParameter : Model
     {
-        #region ParamName : string - название параметра
+        #region Name : string - название параметра
 
-        private String _ParamName;
+        private string _Name;
 
         /// <summary>
-        /// Название параметра
+        ///     Название параметра
         /// </summary>
-        public String ParamName { get => _ParamName; set => Set(ref _ParamName, value); }
+        public string Name
+        {
+            get => _Name;
+            set => Set(ref _Name, value);
+        }
 
         #endregion
 
-        #region ParamValue : double - значение  параметра
+        #region Value : double - значение  параметра
 
-        private double _ParamValue;
+        private double _Value;
+
         /// <summary>
-        /// Значение параметра
+        ///     Значение параметра
         /// </summary>
-        public double ParamValue { get => _ParamValue; set => Set(ref _ParamValue, value); }
+        public double Value
+        {
+            get => _Value;
+            set => Set(ref _Value, value);
+        }
 
         #endregion
 
-        #region MaxParamValue : double - верхня межа довірчого інтервала
+        #region MaxValue : double - верхня межа довірчого інтервала
 
-        private double _MaxParamValue;
+        private double _MaxValue;
+
         /// <summary>
-        /// Верхня межа довірчого інтервала
+        ///     Верхня межа довірчого інтервала
         /// </summary>
-        public double MaxParamValue { get => _MaxParamValue; set => Set(ref _MaxParamValue, value); }
+        public double MaxValue
+        {
+            get => _MaxValue;
+            set => Set(ref _MaxValue, value);
+        }
 
         #endregion
 
-        #region MinParamValue : double - нижня межа довірчого інтервала
+        #region MinValue : double - нижня межа довірчого інтервала
 
-        private double _MinParamValue;
+        private double _MinValue;
+
         /// <summary>
-        /// Нижня межа довірчого інтервала
+        ///     Нижня межа довірчого інтервала
         /// </summary>
-        public double MinParamValue { get => _MinParamValue; set => Set(ref _MinParamValue, value); }
+        public double MinValue
+        {
+            get => _MinValue;
+            set => Set(ref _MinValue, value);
+        }
 
         #endregion
 
         #region RootMeanSquareValue : double - среднее квадратическое параметра
 
         private double _RootMeanSquareValue;
+
         /// <summary>
-        /// Среднее квадратическое параметра 
+        ///     Среднее квадратическое параметра
         /// </summary>
-        public double RootMeanSquareValue { get => _RootMeanSquareValue; set => Set(ref _RootMeanSquareValue, value); }
+        public double RootMeanSquareValue
+        {
+            get => _RootMeanSquareValue;
+            set => Set(ref _RootMeanSquareValue, value);
+        }
 
         #endregion
     }

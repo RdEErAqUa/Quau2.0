@@ -1,26 +1,22 @@
-﻿using Quau2._0.Infrastructure.Async;
-using Quau2._0.Infrastructure.Commands.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Quau2._0.Infrastructure.Async;
+using Quau2._0.Infrastructure.Commands.Base;
 
 namespace Quau2._0.Infrastructure.Commands
 {
-    class AsyncLambdaCommand : IAsyncCommand
+    internal class AsyncLambdaCommand : IAsyncCommand
     {
-        public event EventHandler CanExecuteChanged;
-
-        private bool _isExecuting;
-        private readonly Func<object, Task> _execute;
         private readonly Func<object, bool> _canExecute;
         private readonly IErrorHandler _errorHandler;
+        private readonly Func<object, Task> _execute;
+
+        private bool _isExecuting;
 
 
         /// <summary>
-        /// Создание ассинхронной команды
+        ///     Создание ассинхронной команды
         /// </summary>
         /// <param name="execute">Функция, которая будет выполняться</param>
         /// <param name="canExecute">Функция, которая проверяет, стоит ли execute испольняться</param>
@@ -34,15 +30,12 @@ namespace Quau2._0.Infrastructure.Commands
             _canExecute = canExecute;
             _errorHandler = errorHandler;
         }
-        public bool CanExecute(object p)
-        {
-            return !_isExecuting && (_canExecute?.Invoke(p) ?? true);
-        }
+
+        public event EventHandler CanExecuteChanged;
 
         public async Task ExecuteAsync(object p)
         {
             if (CanExecute(p))
-            {
                 try
                 {
                     _isExecuting = true;
@@ -53,15 +46,10 @@ namespace Quau2._0.Infrastructure.Commands
                 {
                     _isExecuting = false;
                 }
-            }
 
             RaiseCanExecuteChanged();
         }
 
-        public void RaiseCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
         bool ICommand.CanExecute(object parameter)
         {
             return CanExecute(parameter);
@@ -70,6 +58,16 @@ namespace Quau2._0.Infrastructure.Commands
         void ICommand.Execute(object parameter)
         {
             ExecuteAsync(parameter).FireAndForgetSafeAsync(_errorHandler);
+        }
+
+        public bool CanExecute(object p)
+        {
+            return !_isExecuting && (_canExecute?.Invoke(p) ?? true);
+        }
+
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

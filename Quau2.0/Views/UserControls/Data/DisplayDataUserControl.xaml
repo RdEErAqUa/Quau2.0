@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Quau2._0.Views.UserControls.Data"
              xmlns:vm="clr-namespace:Quau2._0.ViewModels.DataViewModels"
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:oxy="http://oxyplot.org/wpf"
              d:DataContext="{d:DesignInstance Type=vm:DisplayDataViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -14,12 +15,11 @@
         <Grid>
             <TabControl>
                 <TabItem Header="Графік ймовірностей">
-                    <lvc:CartesianChart Series="{Binding OneDimensionalSeries.OneDimensionalSeries}">
-                    </lvc:CartesianChart>
+                    <oxy:PlotView Model="{Binding OneDimensionalSeries.OneDimensionalSeries}"/>
+
                 </TabItem>
                 <TabItem Header="Емпіричний графік">
-                    <lvc:CartesianChart Series="{Binding OneDimensionalSeries.OneDimensionalSeriesProbability}">
-                    </lvc:CartesianChart>
+                    <oxy:PlotView Model="{Binding OneDimensionalSeries.OneDimensionalSeriesProbability}"/>
                 </TabItem>
             </TabControl>
         </Grid>

@@ -1,43 +1,40 @@
-﻿using Quau2._0.Infrastructure.Commands.Base.NotifyChangedBaseCommand;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Quau2._0.Infrastructure.Commands.Base.NotifyChangedBaseCommand;
 using Quau2._0.Models.ClusterModels;
 using Quau2._0.Models.OneDimensionalModels;
 using Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticAnalysisCommands
 {
-    class PrimaryStatisticAnalysisCommand : NotifyChangedCommand
+    internal class PrimaryStatisticAnalysisCommand : NotifyChangedCommand
     {
-        private readonly IPrimaryStatisticAnalysisService _primaryStatisticAnalysisService;
-        private OneDimensionalModel _OneDimensionalModels;
         private readonly ObservableCollection<OneDimClusterModel> _OneDimClusterModels;
+        private readonly IPrimaryStatisticAnalysisService _primaryStatisticAnalysisService;
         private readonly string clusterName;
+
+        private bool _isBusyCommand;
+        private OneDimensionalModel _OneDimensionalModels;
+
         public PrimaryStatisticAnalysisCommand(IPrimaryStatisticAnalysisService primaryStatisticAnalysisService,
             OneDimensionalModel OneDimensionalModels)
         {
-
-            this.CommandRun = new AsyncLambdaCommand(OnExecuted, CanExecute);
-            this._primaryStatisticAnalysisService = primaryStatisticAnalysisService;
-            this._OneDimensionalModels = OneDimensionalModels;
+            CommandRun = new AsyncLambdaCommand(OnExecuted, CanExecute);
+            _primaryStatisticAnalysisService = primaryStatisticAnalysisService;
+            _OneDimensionalModels = OneDimensionalModels;
         }
 
         public PrimaryStatisticAnalysisCommand(IPrimaryStatisticAnalysisService primaryStatisticAnalysisService,
-            ObservableCollection<OneDimClusterModel> OneDimClusterModels, String ClusterName)
+            ObservableCollection<OneDimClusterModel> OneDimClusterModels, string ClusterName)
         {
-
-            this.CommandRun = new AsyncLambdaCommand(OnExecuted, CanExecute);
-            this._primaryStatisticAnalysisService = primaryStatisticAnalysisService;
-            this._OneDimClusterModels = OneDimClusterModels;
-            this.clusterName = ClusterName;
+            CommandRun = new AsyncLambdaCommand(OnExecuted, CanExecute);
+            _primaryStatisticAnalysisService = primaryStatisticAnalysisService;
+            _OneDimClusterModels = OneDimClusterModels;
+            clusterName = ClusterName;
         }
-
-        private bool _isBusyCommand;
 
         public bool isBusyCommand
         {
@@ -55,9 +52,9 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticA
                 await Task.Run(() =>
                 {
                     //
-                    if (Int32.Parse((string)p) != 1 || !setOneDim()) return;
-                    this._primaryStatisticAnalysisService.PrimaryAnalysisRun(this._OneDimensionalModels);
-                    this._OneDimensionalModels.SetAnalysis(this._primaryStatisticAnalysisService);
+                    if (int.Parse((string) p) != 1 || !setOneDim()) return;
+                    _primaryStatisticAnalysisService.PrimaryAnalysisRun(_OneDimensionalModels);
+                    _OneDimensionalModels.SetAnalysis(_primaryStatisticAnalysisService);
                 });
             }
             finally
@@ -70,17 +67,20 @@ namespace Quau2._0.Infrastructure.Commands.AsyncLambdaCommands.PrimaryStatisticA
         {
             return !isBusyCommand;
         }
+
         private bool setOneDim()
         {
-            if (this._OneDimClusterModels != null)
+            if (_OneDimClusterModels != null)
                 try
                 {
-                    this._OneDimensionalModels = _OneDimClusterModels?.Where(X => X.ClusterName == clusterName)?.First()?.OneDimensionalModels?.Last();
+                    _OneDimensionalModels = _OneDimClusterModels?.Where(X => X.ClusterName == clusterName)?.First()
+                        ?.OneDimensionalModels?.Last();
                 }
-                catch (System.InvalidOperationException)
+                catch (InvalidOperationException)
                 {
                     return false;
                 }
+
             return true;
         }
     }

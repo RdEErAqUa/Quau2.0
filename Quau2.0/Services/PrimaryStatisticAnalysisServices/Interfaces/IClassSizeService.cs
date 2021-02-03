@@ -1,17 +1,12 @@
-﻿using Quau2._0.Models.OneDimensionalModels.BaseModels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
+using Quau2._0.Models.OneDimensionalModels.BaseModels;
 
 namespace Quau2._0.Services.PrimaryStatisticAnalysisServices.Interfaces
 {
-    interface IClassSizeService
+    internal interface IClassSizeService
     {
         /// <summary>
-        /// Установить размер класса
+        ///     Установить размер класса
         /// </summary>
         /// <param name="OneDimSample"></param>
         /// <returns></returns>

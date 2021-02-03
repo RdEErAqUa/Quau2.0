@@ -38,7 +38,7 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <TabControl Grid.Column="2">
-            <TabItem Header="First">
+            <TabItem Header="Data">
                 <ListBox ItemsSource="{Binding OneDimClusterModels}" 
                          dd:DragDrop.IsDragSource="True"
                                  dd:DragDrop.IsDropTarget="True">
@@ -61,6 +61,8 @@
                                                     </ItemsControl.ItemsPanel>
                                                     <TextBlock Text="Размер классов: "/>
                                                     <TextBox Text="{Binding ClassSize}"/>
+                                                    <TextBlock Text="Название выборки: "/>
+                                                    <TextBox Text="{Binding Name}"/>
                                                 </ItemsControl>
                                             </StackPanel>
                                         </DataTemplate>
@@ -71,10 +73,45 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </TabItem>
-            <TabItem Header="Second">
+            <TabItem Header="Short desc">
                 <DataGrid Grid.Column="1" Grid.Row="1" ItemsSource="{Binding OneDimensionalModels}" CanUserAddRows="False">
-
+                
                 </DataGrid>
+            </TabItem>
+            <TabItem Header="Protocol">
+                <ItemsControl ItemsSource="{Binding OneDimensionalModels}" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBox Text="{Binding Name}" IsReadOnly="True"/>
+                                <DataGrid ItemsSource="{Binding ParameterData}" IsReadOnly="True" AutoGenerateColumns="False" HorizontalGridLinesBrush="DarkGray"
+                                          RowBackground="LightGray" AlternatingRowBackground="White">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Параметр" Binding="{Binding Path=Name}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Значение" Binding="{Binding Path=Value}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Середньоквадратичне" Binding="{Binding Path=RootMeanSquareValue}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Минимум" Binding="{Binding Path=MinValue}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="Максимум" Binding="{Binding Path=MaxValue}"></DataGridTextColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </TabItem>
+            <TabItem Header="Consent about distribution">
+                <ItemsControl ItemsSource="{Binding OneDimensionalModels}" >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBox Text="{Binding Name}" IsReadOnly="True"/>
+                                <DataGrid ItemsSource="{Binding Distribution.Parameter}" IsReadOnly="True" HorizontalGridLinesBrush="DarkGray"
+                                          RowBackground="LightGray" AlternatingRowBackground="White">
+                                </DataGrid>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </TabItem>
         </TabControl>
     </Grid>

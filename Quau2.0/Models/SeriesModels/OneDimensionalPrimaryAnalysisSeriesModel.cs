@@ -1,32 +1,37 @@
-﻿using LiveCharts;
-using Quau2._0.Models.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using OxyPlot;
+using Model = Quau2._0.Models.Base.Model;
 
 namespace Quau2._0.Models.SeriesModels
 {
-    class OneDimensionalPrimaryAnalysisSeriesModel : Model
+    internal class OneDimensionalPrimaryAnalysisSeriesModel : Model
     {
         #region OneDimensionalSeries : SeriesCollection - серия одномерных выборок, для функции плотности
 
-        private SeriesCollection _OneDimensionalSeries;
+        private PlotModel _OneDimensionalSeries;
+
         /// <summary>
-        /// Серия одномерных выборок, для функции плотности
+        ///     Серия одномерных выборок, для функции плотности
         /// </summary>
-        public SeriesCollection OneDimensionalSeries { get => _OneDimensionalSeries; set => Set(ref _OneDimensionalSeries, value); }
+        public PlotModel OneDimensionalSeries
+        {
+            get => _OneDimensionalSeries;
+            set => Set(ref _OneDimensionalSeries, value);
+        }
 
         #endregion
 
         #region OneDimensionalSeriesProbability : SeriesCollection - серия одномерных выборок, для функции вероятности
 
-        private SeriesCollection _OneDimensionalSeriesProbability;
+        private PlotModel _OneDimensionalSeriesProbability;
+
         /// <summary>
-        /// Серия одномерных выборок, для функции вероятности
+        ///     Серия одномерных выборок, для функции вероятности
         /// </summary>
-        public SeriesCollection OneDimensionalSeriesProbability { get => _OneDimensionalSeriesProbability; set => Set(ref _OneDimensionalSeriesProbability, value); }
+        public PlotModel OneDimensionalSeriesProbability
+        {
+            get => _OneDimensionalSeriesProbability;
+            set => Set(ref _OneDimensionalSeriesProbability, value);
+        }
 
         #endregion
     }
